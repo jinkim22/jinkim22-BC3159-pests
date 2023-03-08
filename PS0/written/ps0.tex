@@ -1,0 +1,231 @@
+\documentclass[]{article}
+
+% add math
+\usepackage{amssymb,amsmath}
+
+% add nice links and colors
+\usepackage{xcolor}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{pdfborder={0 0 0},breaklinks=true,bookmarks=true,colorlinks=true}
+
+% for algorithms
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\newcommand{\setalglineno}[1]{%
+  \setcounter{ALG@line}{\numexpr#1-1}}
+\makeatletter
+\newcommand\fs@spaceruled{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+  \def\@fs@pre{\vspace{0.4\baselineskip}\hrule height.8pt depth0pt \kern2pt}%
+  \def\@fs@post{\vspace{-0.4\baselineskip}\kern2pt\hrule\relax\vspace{-12pt}}%
+  \def\@fs@mid{\kern2pt\hrule\kern2pt}%
+  \let\@fs@iftopcapt\iftrue}
+\makeatother
+
+% some basic paragraph styling
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% title and author
+\title{COMS BC 3159 - S23: Problem Set 0}
+\author{
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %                                       %
+    % TODO: Your Name Here                  %
+    %                                       %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Introduction:}  
+Hello and welcome to COMS BC 3159 - S23!  I know what you are thinking, ``ugh, why do I have to do PS 0?  We haven't even learned anything yet.''  That might be true, but we wanted to give you all an opportunity to \textbf{practice} completing and turning in assignments for this class, as after \textbf{PS 0}, we will not be so lenient and forgiving in our handling of incorrectly submitted problem sets.
+
+This first assignment \textbf{should not} feel too arduous or time consuming -- in fact, it may even seem trivial.  If it is, good!  It is meant to get you back in the groove of things and ready to tackle this semester, not provide too much mental stress.  If, for whatever reason, you are struggling with this assignment, \textbf{PLEASE} reach out to one of us, your teaching staff -- or even fellow classmates or friends.  We really want to make sure everyone comes into the class confident that they can succeed.
+
+The following exercises will mostly test some basic math concepts as well as getting you more comfortable with \LaTeX. In addition to solving the problems found below, you will also need to complete the coding part of the assignment, found in the Github repo. 
+
+Finally, we'd like to remind you that all work should be yours and yours alone. This being said, in addition to being able to ask questions at office hours, you are allowed to discuss questions with fellow classmates, provided 1) you note the people with whom you collaborated, and 2) you \textbf{DO NOT} copy any answers. Please write up the solutions to all problems independently.
+
+Without further ado, let's jump right in!
+
+\bigskip
+\textbf{Collaborators:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Names of any Collaborators Here %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Linear Algebra}
+
+\subsection*{Problem 1 (2 Points):}
+Solve the following system of linear equations for $x, y, \text{and} z$. Please show your work and use matrix algebra.
+\begin{equation*}
+    \begin{split}
+        x + 2y + 3z &= 1 \\
+        2x + 2y + 3z &= 2 \\
+        x + 3y + 4z &= 2
+    \end{split}.
+\end{equation*}
+Hint: the inverse of:
+    $\begin{bmatrix}
+        1 & 2 & 3\\
+        2 & 2 & 3\\
+        1 & 3 & 4
+        \end{bmatrix}$
+    is:
+    $\begin{bmatrix}
+        -1 & 1 & 0\\
+        -5 & 1 & 3\\
+        4 & -1 & -2
+        \end{bmatrix}$
+
+\bigskip
+\textbf{Solution 1:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 1      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\section{(Vector) Calculus}
+\subsection*{Problem 2 (2 Points):}
+Suppose that we wish to minimize some loss function $\mathcal{L}$ with respect to a variable $x$ where:
+$$\mathcal{L}(x) = 3x^2 + 2x - 1$$
+
+Given this loss function, what value of $x$ minimizes the loss?  In other words, for what value of $x$ is this function minimal?
+
+\bigskip
+\textbf{Solution 2:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 2      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Problem 3 (2 Points):}
+Now assume $x$ is a vector in $\mathcal{R}^N$. Our new loss function becomes:
+$$\mathcal{L}(x) = x^TQx + 1 \quad \text{where} \quad Q = 3I_{N \times N}$$
+What is the gradient, $\nabla$, of $\mathcal{L}(x)$ (hint: gradient $\approx$ derivative)? What is the hessian, $\nabla^2$?
+
+\bigskip
+\textbf{Solution 3:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 3      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CS Theory}
+\subsection*{Problem 4 (2 Points)}
+For this last problem, we will deal with the basics of asymptotic notation. For those of you who have never seen this before, do not fret!  We will only really deal loosely with the notion of Big-O notation in this class.  For a really simple beginner's guide, see: \url{https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/}. Briefly, Big-O notation is a way for us to talk about assymptotic run-times of algorithms. For those of you who have explored sorting algorithms in past CS classes may recall that insertion sort takes $O(n^2)$ time -- where $n$ is the length of the list to sort -- while merge sort takes $O(n\ln n)$ time. \textbf{What is the runtime of the following \texttt{foo} algorithm in Big-O notation?  What does the following algorithm do?}
+
+\begin{lstlisting}
+def sum_list(lst):
+    """
+    Function that returns the sum of elements in lst
+    :param lst: input list
+    :type  lst: [int]
+    :return: sum of the list
+    :rtype : int
+    """
+    rtn = 0
+    for elt in lst:
+        rtn += elt
+    return rtn
+
+
+def foo(lst):
+    """
+    Foo Algorithm
+    :param lst: input list of length n
+    :type  lst: [int]
+    :return: ???
+    :rtype : int
+    """
+    for elt in lst:
+        if elt < 0:
+            return -1
+    return sum_list(lst)
+        
+
+\end{lstlisting}
+
+\clearpage
+\textbf{Solution 4:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 4      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Programming}
+\subsection*{Problem 5 (2 Points)}
+
+Consider the following C code:
+
+\begin{lstlisting}[language=C]
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int* ptr = &arr[2];
+    *ptr = 7;
+    printf("%d\n", *ptr + 2);
+    return 0;
+}
+\end{lstlisting}
+
+What values are in the final array? What is printed out by the function?
+
+\bigskip
+\bigskip
+\bigskip
+\textbf{Solution 5:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 5      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,0 +1,279 @@
+\documentclass[]{article}
+
+% add math
+\usepackage{amssymb,amsmath}
+
+% add nice links and colors
+\usepackage{xcolor}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{pdfborder={0 0 0},breaklinks=true,bookmarks=true,colorlinks=true}
+
+% for algorithms and code
+\usepackage{listings}
+\lstnewenvironment{itemlisting}[1][]
+ {%
+  \mbox{}
+  \vspace*{-\baselineskip}
+  \lstset{
+    xleftmargin=\leftmargin,
+    linewidth=\linewidth,
+    #1
+  }%
+ }
+ {}
+\lstset
+{ %Formatting for code in appendix
+    language=C++,
+    %basicstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    %tabsize=1,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\newcommand{\setalglineno}[1]{%
+  \setcounter{ALG@line}{\numexpr#1-1}}
+\makeatletter
+\newcommand\fs@spaceruled{\def\@fs@cfont{\bfseries}\let\@fs@capt\floatc@ruled
+  \def\@fs@pre{\vspace{0.4\baselineskip}\hrule height.8pt depth0pt \kern2pt}%
+  \def\@fs@post{\vspace{-0.4\baselineskip}\kern2pt\hrule\relax\vspace{-12pt}}%
+  \def\@fs@mid{\kern2pt\hrule\kern2pt}%
+  \let\@fs@iftopcapt\iftrue}
+\makeatother
+
+% some basic paragraph styling
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% custom commands
+% if you want to leave a \todo{I need to finish this} reminder!
+\newcommand{\todo}[1]{\textbf{\textcolor{red}{#1}}}
+
+% title and author
+\title{COMS BC 3159 - S23: Problem Set 1}
+\author{
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %                                       %
+    % TODO: Your Name Here                  %
+    %                                       %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Introduction:}  
+The following exercises will explore computer architecture / systems and parallel programming on the CPU and GPU. In addition to solving the problems found below, you will also need to complete the coding part of the assignment, found in the Github repo. 
+
+Finally, we'd like to remind you that all work should be yours and yours alone. This being said, in addition to being able to ask questions at office hours, you are allowed to discuss questions with fellow classmates, provided 1) you note the people with whom you collaborated, and 2) you \textbf{DO NOT} copy any answers. Please write up the solutions to all problems independently.
+
+Without further ado, let's jump right in!
+
+\bigskip
+\textbf{Collaborators:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Names of any Collaborators Here %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Am I Thread Safe?}
+
+\subsection*{Problem 1 (4 Points):}
+Below you will find some partially completed code for a multi-threaded C++ program that is intended to calculate the average value of an array of integers.
+\begin{enumerate}[label=(\alph*)]
+    \item What code needs to be put in the two \#TODO\# blocks in lines 20 and 21 in order to efficiently divide memory across the threads?
+    \item Is this code thread safe? That is, will it produce the correct output? Why or how can you fix it?
+\end{enumerate}
+
+\begin{lstlisting}
+#include <iostream>
+#include <thread>
+#include <vector>
+
+const int N = 100000;
+const int N_threads = 10;
+int data[N];
+int sum = 0;
+std::thread threads[N_threads];
+
+void sum_part(int *array, int start, int end) {
+    for (int i = start; i < end; i++) {sum += array[i];}
+}
+
+int main() {
+    // Initialize array with random values
+    for (int i=0; i<N; i++) {array[i] = rand();}
+
+    for (int i=0; i<N_threads; i++) {
+        int start = #TODO#
+        int end = #TODO#
+        // launch the sum_part function in a thread
+        threads[i] = std::thread(sum_part, 
+                                 data, start, end);
+    }
+
+    // join all of the threads
+    for (int i=0; i<N_threads; i++) {threads[i].join();}
+
+    // output the average
+    std::cout << "Avg: " << (double)sum/N << std::endl;
+    return 0;
+}
+\end{lstlisting}
+
+\textbf{Solution 1:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 1      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Note: if you want to use the lstlisting environemnt inside of an enumerate it will break BUT
+%       you can instead use itemlisting environment I declared in the preamble (taken from 
+%       https://tex.stackexchange.com/questions/558969/lstlisting-in-enumerate-environment)
+\begin{enumerate}[label=(\alph*)]
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsection*{Problem 2 (6 Points + 1 Bonus):}
+Below you will find some partially completed code for a GPU program that is intended to sum all of the numbers from 1 to $N$. However, there are a few mistakes with the code that will make it not run correctly or produce the correct output. Please list all the changes that need to be made to fix this code.
+
+Hint: You should find at least 3 major issues for full credit. One bonus point if you find all of the major issues.
+
+\begin{lstlisting}
+#include <iostream>
+#include <cuda_runtime.h>
+
+const int N = 100;
+
+// add 1 to all values in an array
+__global__ void increment_kernel(int *data, int N) {
+    int idx = threadIdx.x;
+    if (idx < N) {data[idx] += 1;}
+}
+
+int main() {
+    int *h_data = (int *)malloc(N*sizeof(int));
+    int *d_data; cudaMalloc(&d_data, N * sizeof(int));
+
+    // initialize the data
+    for (int i =0; i < N; i++){h_data[i] = i;}
+
+    // apply the kernel
+    increment_kernel<<<10, 10>>>(d_data, N);
+    cudaDeviceSynchronize();
+
+    // sum the resulting array
+    int sum = 0;
+    for (int i = 0; i < N; i++) {
+        sum += d_data[i];
+    }
+    std::cout << "Sum: " << sum << std::endl;
+
+    free(h_data); cudaFree(d_data);
+    return 0;
+}
+
+\end{lstlisting}
+
+\clearpage
+\textbf{Solution 2:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 2     %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section{Computer Architecture and Systems}
+\subsection*{Problem 3 (6 Points):}
+Assume that when you access memory from RAM that you load in 64 bytes of memory into the cache. Also assume that loading from RAM to cache and then into registers takes a total of 26ns. Future loads of this data from the cache into registers takes only 2ns. Finally assume that the result of all computations loads data back into cache and registers for free (aka it takes 0ns). For the following code below how long would it take to load data into registers during the runtime of the function? Please write your answer as a function of $N$.
+\begin{enumerate}[label=(\alph*)]
+    \item First, consider the case where this program is run in one thread.
+    \item Second, consider the case where the for loop in lines 3-5 is parallelized across 4 threads evenly distributing the work. Ignore thread or synchronizations overheads. Can you describe the least efficient memory access pattern for the four threads? How long would it take? Is this faster or slower than the serial case?
+    \item Conversely in the 4 thread case, can you describe the most efficient memory access pattern? How long would it take? Is this faster or slower than the serial case?
+\end{enumerate}
+Hint: integers are 4 bytes in size!
+
+\begin{lstlisting}
+void sum_even_vector(int *array) {
+    int sum = 0;
+    for (int i = 0; i < N; i += 2) {
+        sum += array[i];
+    }
+    return sum;
+}
+\end{lstlisting}
+
+\bigskip
+\textbf{Solution 3:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 3      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\subsection*{Problem 4 (4 Points)}
+Are the following statements true or false? Please explain why in 1-3 sentences.
+
+\begin{enumerate}
+    \item A sorting algorithm which divides an array into four parts and has each part sorted on a different CPU thread using a different sorting algorithm (quick sort, merge sort, bubble sort, etc.) is an example of a MIMD computational pattern.
+    \item An algorithm that compute the sum of two arrays using a serial loop on a single thread is an example of a SIMD computational pattern.
+    \item All threads launched in a computational grid can access the same shared memory.
+    \item You cannot fully control which core a thread runs on in a CPU, nor can you fully control which SM a thread block runs on in a GPU.
+\end{enumerate}
+
+\textbf{Solution 4:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                       %
+% TODO: Your solution to Problem 4      %
+%                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+    \item %TODO Solution Goes Here!
+\end{enumerate}
+
+\end{document}
